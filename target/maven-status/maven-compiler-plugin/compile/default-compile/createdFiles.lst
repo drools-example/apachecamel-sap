@@ -1,0 +1,5 @@
+com\apachecamel\model\SalesOrderGetListBapi.class
+com\apachecamel\controller\MainController.class
+com\apachecamel\service\RestService.class
+com\apachecamel\model\SalesOrder.class
+com\java\jbossfuse\SAPNetweaverGateway.class
