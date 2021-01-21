@@ -8,8 +8,13 @@
        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-	<cxf:rsServer id="restService" address="http://localhost:8060"
-		serviceClass="com.apachecamel.controller.MainController">
+	<cxf:rsServer id="restService" address="http://localhost:8060/camelServices/"
+		serviceClass="com.apachecamelsap.service.RestService">
 	</cxf:rsServer>
+	
+	<bean id="routeBuilderSAP" class="com.apachecamelsap.route.SimpleRouteBuilderSAP" />
+	<camelContext xmlns="http://camel.apache.org/schema/spring">
+         <routeBuilder ref="routeBuilderSAP" />
+	</camelContext>
 
 </beans>

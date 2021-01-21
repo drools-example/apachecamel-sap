@@ -98,10 +98,10 @@ public class SAPNetweaverGateway {
 		logger.debug("SAPNetweaverGateway.getKeyBalanceDetails(String jsonData) -->Exit");
 		return result;
 	}
-	public static void main(String[] args) throws Exception {
-		String jsonData = "{\"companyCode\": \"MVPL\",\"customer\": \"0000100060\"}";
-		SAPNetweaverGateway sapNetweaverGateway = new SAPNetweaverGateway();
+	//public static void main(String[] args) throws Exception {
+		//String jsonData = "{\"companyCode\": \"MVPL\",\"customer\": \"0000100060\"}";
+		//SAPNetweaverGateway sapNetweaverGateway = new SAPNetweaverGateway();
 		//sapNetweaverGateway.getSalesOrderGetList();
-		sapNetweaverGateway.getKeyBalanceDetails(jsonData);
-	}
+		//sapNetweaverGateway.getKeyBalanceDetails(jsonData);
+	//}
 }

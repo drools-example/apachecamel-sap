@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
  * @author jugalpatel
  *
  */
-@Path("/camelServices")
+@Path("/")
 public interface RestService {
 
 	@POST
