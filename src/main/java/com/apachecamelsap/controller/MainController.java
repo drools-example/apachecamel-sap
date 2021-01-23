@@ -6,20 +6,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.apachecamelsap.service.RestService;
-import com.java.apachecamelsap.util.SAPNetweaverGateway;
+import com.apachecamelsap.util.SAPNetweaverGateway;
 
 /**
  * 
  * @author jugalpatel
  *
  */
-public class MainController implements RestService {
+public class MainController{
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	private static final String API_ERROR_RESPONSE_MESSAGE = "API request was failed.";
 	
-	@Override
 	public Response getSalesOrderList(String jsonData) {
 		String response = null;
 		try {
@@ -31,7 +30,6 @@ public class MainController implements RestService {
 		return Response.status(Response.Status.OK).entity(response).build();
 	}
 
-	@Override
 	public Response getKeyBalanceDetails(String jsonData) {
 		String response = null;
 		try {

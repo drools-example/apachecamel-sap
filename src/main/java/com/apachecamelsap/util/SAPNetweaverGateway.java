@@ -1,19 +1,21 @@
-package com.java.apachecamelsap.util;
+package com.apachecamelsap.util;
 
 import java.util.Date;
 import java.util.Map;
 
 import org.hibersap.bapi.BapiRet2;
 import org.hibersap.configuration.AnnotationConfiguration;
+import org.hibersap.configuration.xml.SessionManagerConfig;
+import org.hibersap.execution.jco.JCoContext;
 import org.hibersap.session.Session;
 import org.hibersap.session.SessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.apachecamelsap.model.SalesOrderGetListBapi;
 import com.apachecamelsap.model.KeyBalanceBapi;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.apachecamelsap.model.SalesOrderGetListBapi;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * 
  * @author jugalpatel
@@ -23,8 +25,19 @@ public class SAPNetweaverGateway {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SAPNetweaverGateway.class);
 
-	public static SessionManager createSessionManager() {
-        AnnotationConfiguration configuration = new AnnotationConfiguration("A12");
+	public SessionManager createSessionManager() {
+		SessionManagerConfig cfg = new SessionManagerConfig("A12") 
+			    .setContext(JCoContext.class.getName()) 
+			    .setProperty("jco.client.client","400") 
+			    .setProperty("jco.client.user" ,"mvpldev") 
+			    .setProperty("jco.client.passwd", "mdev999") 
+			    .setProperty("jco.client.lang", "en") 
+			    .setProperty("jco.client.ashost", "13.233.222.105") 
+			    .setProperty("jco.client.sysnr", "00");
+			 
+			AnnotationConfiguration configuration = new AnnotationConfiguration(cfg);
+			configuration.addBapiClasses(SalesOrderGetListBapi.class, KeyBalanceBapi.class);
+        //AnnotationConfiguration configuration = new AnnotationConfiguration("A12");
         return configuration.buildSessionManager();
     }
 	
@@ -46,15 +59,15 @@ public class SAPNetweaverGateway {
 		try {
 			SessionManager sessionManager = createSessionManager();
 			session = sessionManager.openSession();
-			Gson gson = new Gson();
+			ObjectMapper objectMapper = new ObjectMapper();
 			
-			Map<String,String> paramMap = gson.fromJson(jsonData, new TypeToken<Map<String, String>>(){}.getType());
+			Map<String,String> paramMap = objectMapper.readValue(jsonData, new TypeReference<Map<String, String>>() {});
 			SalesOrderGetListBapi salesOrderGetListBapi =  new SalesOrderGetListBapi();
 			salesOrderGetListBapi.setCustomer_number(paramMap.get("customerNumber")); //"0000100915"
 			salesOrderGetListBapi.setSales_organization(paramMap.get("salesOrganization"));  //"MVSO"
 			
 			session.execute(salesOrderGetListBapi);
-			result = gson.toJson(salesOrderGetListBapi.getSales_orders());
+			result = objectMapper.writeValueAsString(salesOrderGetListBapi.getSales_orders());
 			
 			System.out.println(showResult(salesOrderGetListBapi));
 		} catch (Exception e) {
@@ -75,9 +88,9 @@ public class SAPNetweaverGateway {
 		try {
 			SessionManager sessionManager = createSessionManager();
 			session = sessionManager.openSession();
-			Gson gson = new Gson();
+			ObjectMapper objectMapper = new ObjectMapper();
 			
-			Map<String,String> paramMap = gson.fromJson(jsonData, new TypeToken<Map<String, String>>(){}.getType());
+			Map<String,String> paramMap = objectMapper.readValue(jsonData, new TypeReference<Map<String, String>>() {});
 			KeyBalanceBapi  user = new KeyBalanceBapi();
             user.setCompanyCode(paramMap.get("companyCode")); //"MVPL"
             user.setCustomer(paramMap.get("customer")); //"0000100060"
@@ -86,7 +99,7 @@ public class SAPNetweaverGateway {
             user.setNotedItems("");
             
 			session.execute(user);
-			result = gson.toJson(user.getKeybalance());
+			result = objectMapper.writeValueAsString(user.getKeybalance());
 			System.out.println(result);
 		} catch (Exception e) {
 			logger.error("Error while calling SAPNetweaverGateway.getKeyBalanceDetails():",e);

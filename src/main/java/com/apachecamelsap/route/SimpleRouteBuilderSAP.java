@@ -4,7 +4,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
-import com.java.apachecamelsap.util.SAPNetweaverGateway;
+import com.apachecamelsap.util.SAPNetweaverGateway;
 
 public class SimpleRouteBuilderSAP extends RouteBuilder {
 
@@ -20,6 +20,15 @@ public class SimpleRouteBuilderSAP extends RouteBuilder {
 				String responseJson = new SAPNetweaverGateway().getKeyBalanceDetails(jsonData);
 		        exchange.getOut().setBody(responseJson);              
 		    }
-		});
+		})
+		.when(header("operationName").isEqualTo("getSalesOrderList"))
+		.process(new Processor() {
+			public void process(Exchange exchange) throws Exception {
+				String jsonData = exchange.getIn().getBody(String.class);
+				String responseJson = new SAPNetweaverGateway().getSalesOrderGetList(jsonData);
+		        exchange.getOut().setBody(responseJson);              
+		    }
+		})
+		.end();
 	}
 }
