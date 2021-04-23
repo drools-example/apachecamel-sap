@@ -107,8 +107,4 @@ public class KeyBalanceBapi implements Serializable {
 	public void setKeybalance(List<KeyBalance> keybalance) {
 		this.keybalance = keybalance;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 }

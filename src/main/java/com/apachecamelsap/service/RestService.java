@@ -18,11 +18,17 @@ public interface RestService {
 	@Path("/getSalesOrderList/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSalesOrderList(String jsonData);
+	public Response getSalesOrderList(String requestData);
 	
 	@POST
 	@Path("/getKeyBalanceDetails/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getKeyBalanceDetails(String jsonData);
+	public Response getKeyBalanceDetails(String requestData);
+	
+	@POST
+	@Path("/getCustomerDetails/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCustomerDetails(String requestData);
 }
