@@ -3,6 +3,7 @@ package com.apachecamelsap.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.hibersap.annotations.Bapi;
 import org.hibersap.annotations.Export;
@@ -32,19 +33,19 @@ public class CustomerDetailsBapi implements Serializable {
 	
 	@Export
 	@Parameter(value="CUSTOMERADDRESS")
-	private BapiRet2 customerAddress;
+	private Map customerAddress;
 	
 	@Export
 	@Parameter(value="CUSTOMERGENERALDETAIL")
-	private BapiRet2 customerGeneralDetail;
+	private Map customerGeneralDetail;
 	
 	@Export
 	@Parameter(value="CUSTOMERCOMPANYDETAIL")
-	private BapiRet2 customerCompanyDetail;
+	private Map customerCompanyDetail;
 	
 	@Export
 	@Parameter(value="RETURN")
-	private BapiRet2 returnData;
+	private Map returnData;
 	
 	@Table
 	@Parameter("CUSTOMERBANKDETAIL")
@@ -74,35 +75,36 @@ public class CustomerDetailsBapi implements Serializable {
 		this.companyCode = companyCode;
 	}
 
-	public BapiRet2 getCustomerAddress() {
+	public Map getCustomerAddress() {
 		return customerAddress;
 	}
 
-	public void setCustomerAddress(BapiRet2 customerAddress) {
+	public void setCustomerAddress(Map customerAddress) {
 		this.customerAddress = customerAddress;
 	}
 
-	public BapiRet2 getCustomerGeneralDetail() {
+	public Map getCustomerGeneralDetail() {
 		return customerGeneralDetail;
 	}
 
-	public void setCustomerGeneralDetail(BapiRet2 customerGeneralDetail) {
+	public void setCustomerGeneralDetail(Map customerGeneralDetail) {
 		this.customerGeneralDetail = customerGeneralDetail;
 	}
 
-	public BapiRet2 getCustomerCompanyDetail() {
+	public Map getCustomerCompanyDetail() {
 		return customerCompanyDetail;
 	}
 
-	public void setCustomerCompanyDetail(BapiRet2 customerCompanyDetail) {
+	public void setCustomerCompanyDetail(Map customerCompanyDetail) {
 		this.customerCompanyDetail = customerCompanyDetail;
 	}
 
-	public BapiRet2 getReturnData() {
+
+	public Map getReturnData() {
 		return returnData;
 	}
 
-	public void setReturnData(BapiRet2 returnData) {
+	public void setReturnData(Map returnData) {
 		this.returnData = returnData;
 	}
 
