@@ -1,1 +1,0 @@
-mvn install:install-file -DgroupId=org.hibersap -DartifactId=com.sap.conn.jco.sapjco3 -Dversion=3.0.15 -Dpackaging=jar -Dfile=sapjco3.jar
